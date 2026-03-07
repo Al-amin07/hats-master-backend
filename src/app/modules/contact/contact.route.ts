@@ -8,6 +8,7 @@ const route = Router();
 route.post('/',  contactController.createContact);
 route.post('/contact-us', contactController.contactUs);
 route.get('/', contactController.getAllContact);
+route.get('/admin', contactController.getAdminStat);
 route.get('/:contactId', contactController.getSingleContact);
 route.patch('/:contactId',  contactController.updateContact);
 route.delete('/:contactId',  contactController.deleteContact);

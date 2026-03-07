@@ -18,6 +18,9 @@ const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../error/AppError"));
 const contact_model_1 = require("./contact.model");
 const sendEmail_1 = require("../../utils/sendEmail");
+const banner_model_1 = require("../banner/banner.model");
+const product_model_1 = require("../product/product.model");
+const process_model_1 = require("../process/process.model");
 const createContact = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     // if you want to allow only one contact info in DB (common for websites)
     const existing = yield contact_model_1.Contact.findOne({});
@@ -58,6 +61,16 @@ const deleteContact = (id) => __awaiter(void 0, void 0, void 0, function* () {
     }
     const result = yield contact_model_1.Contact.findByIdAndDelete(id);
     return result;
+});
+const getAdminStat = () => __awaiter(void 0, void 0, void 0, function* () {
+    const totalBanners = yield banner_model_1.Banner.countDocuments();
+    const totalProducts = yield product_model_1.CapModel.countDocuments();
+    const totalProcess = yield process_model_1.Process.countDocuments();
+    return {
+        totalBanners,
+        totalProducts,
+        totalProcess
+    };
 });
 const contactUs = (payload) => __awaiter(void 0, void 0, void 0, function* () {
     const { name, phone, email, message } = payload;
@@ -113,4 +126,5 @@ exports.contactServices = {
     updateContact,
     deleteContact,
     contactUs,
+    getAdminStat,
 };

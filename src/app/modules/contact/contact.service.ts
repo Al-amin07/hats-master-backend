@@ -4,6 +4,9 @@ import ApppError from '../../error/AppError';
 import { Contact } from './contact.model';
 import { IContact } from './contact.interface';
 import { sendEmail } from '../../utils/sendEmail';
+import { Banner } from '../banner/banner.model';
+import { CapModel } from '../product/product.model';
+import { Process } from '../process/process.model';
 
 const createContact = async (payload: IContact) => {
   // if you want to allow only one contact info in DB (common for websites)
@@ -61,6 +64,19 @@ const deleteContact = async (id: string) => {
   const result = await Contact.findByIdAndDelete(id);
   return result;
 };
+
+const getAdminStat = async () => {
+  const totalBanners = await Banner.countDocuments();
+  const totalProducts = await CapModel.countDocuments();
+  const totalProcess = await Process.countDocuments()
+  return {
+    totalBanners,
+    totalProducts,
+    totalProcess
+  }
+  
+}
+
 
 const contactUs = async (payload: {
   name: string;
@@ -139,4 +155,5 @@ export const contactServices = {
   updateContact,
   deleteContact,
   contactUs,
+  getAdminStat,
 };

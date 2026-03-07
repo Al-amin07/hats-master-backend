@@ -36,6 +36,15 @@ const getAllContact = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, 
         data: result,
     });
 }));
+const getAdminStat = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const result = yield contact_service_1.contactServices.getAdminStat();
+    (0, sendResponse_1.default)(res, {
+        statusCode: http_status_1.default.OK,
+        success: true,
+        message: 'Admin data retrieved successfully',
+        data: result,
+    });
+}));
 const getSingleContact = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const { contactId } = req.params;
     const result = yield contact_service_1.contactServices.getSingleContact(contactId);
@@ -82,4 +91,5 @@ exports.contactController = {
     updateContact,
     deleteContact,
     contactUs,
+    getAdminStat,
 };

@@ -2,7 +2,8 @@ import catchAsync from "../../utils/catchAsync";
 import { getOptimizedImageUrl, slugifyFilename, uploadImageBuffer } from "../../utils/upload";
 
 const uploadImage = catchAsync(async (req, res) => {
- const file = req.file;
+  const file = req.file;
+  console.log([file])
  if (!file) throw new Error('No file uploaded');
 
  const publicId = slugifyFilename(file.originalname);

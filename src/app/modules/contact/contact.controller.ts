@@ -25,6 +25,16 @@ const getAllContact = catchAsync(async (req, res) => {
     data: result,
   });
 });
+const getAdminStat = catchAsync(async (req, res) => {
+  const result = await contactServices.getAdminStat();
+
+  sendResponse(res, {
+    statusCode: status.OK,
+    success: true,
+    message: 'Admin data retrieved successfully',
+    data: result,
+  });
+});
 
 const getSingleContact = catchAsync(async (req, res) => {
   const { contactId } = req.params;
@@ -79,4 +89,5 @@ export const contactController = {
   updateContact,
   deleteContact,
   contactUs,
+  getAdminStat,
 };

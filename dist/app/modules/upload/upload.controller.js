@@ -17,6 +17,7 @@ const catchAsync_1 = __importDefault(require("../../utils/catchAsync"));
 const upload_1 = require("../../utils/upload");
 const uploadImage = (0, catchAsync_1.default)((req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const file = req.file;
+    console.log([file]);
     if (!file)
         throw new Error('No file uploaded');
     const publicId = (0, upload_1.slugifyFilename)(file.originalname);

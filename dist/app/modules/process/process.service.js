@@ -17,6 +17,7 @@ const http_status_1 = __importDefault(require("http-status"));
 const AppError_1 = __importDefault(require("../../error/AppError"));
 const process_model_1 = require("./process.model");
 const createProcess = (payload) => __awaiter(void 0, void 0, void 0, function* () {
+    console.log({ payload });
     const isProcessExist = yield process_model_1.Process.findOne({ title: payload.title });
     if (isProcessExist) {
         throw new AppError_1.default(http_status_1.default.BAD_REQUEST, 'Process title already exist');

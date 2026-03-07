@@ -15,20 +15,24 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = __importDefault(require("mongoose"));
 const app_1 = __importDefault(require("./app"));
 const config_1 = __importDefault(require("./app/config"));
-let server;
 const promises_1 = __importDefault(require("node:dns/promises"));
 const admin_seeder_1 = require("./app/seeder/admin.seeder");
 const upload_1 = require("./app/utils/upload");
+let server;
 function main() {
     return __awaiter(this, void 0, void 0, function* () {
         try {
             promises_1.default.setServers(['1.1.1.1', '8.8.8.8']);
+            // ✅ connect DB first
             yield mongoose_1.default.connect(config_1.default.db_url);
-            console.log('Mongodb connected successfully ');
-            server = app_1.default.listen(config_1.default.port, () => {
-                console.log('Server running at port :', config_1.default.port);
+            console.log('Mongodb connected successfully');
+            // ✅ cPanel requires process.env.PORT
+            const port = Number(process.env.PORT) || Number(config_1.default.port) || 3000;
+            server = app_1.default.listen(port, '0.0.0.0', () => {
+                console.log('Server running at port:', port);
             });
-            (0, admin_seeder_1.adminSeeder)();
+            // (optional) don’t block startup
+            (0, admin_seeder_1.adminSeeder)().catch(console.error);
             (0, upload_1.initCloudinary)();
         }
         catch (error) {
